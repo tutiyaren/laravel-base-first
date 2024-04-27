@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Todo;
 use App\UseCase\CreateTodoUseCase;
+use App\UseCase\EditTodoUseCase;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -78,20 +78,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, EditTodoUseCase $case)
     {
-        $validator = Validator::make($request->all(), [
-            'todo' => 'required | max:191',
-            'deadline' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()
-            ->route('todo.edit', $id)
-            ->withInput()
-            ->withErrors($validator);
-        }
-        
-        $result = Todo::find($id)->update($request->all());
+        $case($request, $id);
         return redirect()->route('todo.index');
     }
 

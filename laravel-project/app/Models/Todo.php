@@ -4,7 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
+use Illuminate\Http\Request;
 
 class Todo extends Model
 {
@@ -27,5 +30,16 @@ class Todo extends Model
         ->orderBy('deadline', 'asc')
         ->get();
         return $todos;
+    }
+
+    public static function validateTodo(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'todo' => 'required|max:191',
+            'deadline' => 'required'
+        ]);
+        if ($validator->fails()) {
+            throw ValidationException::withMessages($validator->errors()->toArray());
+        }
     }
 }

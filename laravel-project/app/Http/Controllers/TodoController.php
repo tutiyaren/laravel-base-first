@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Validator;
 use App\Models\Todo;
-use Auth;
+use App\UseCase\CreateTodoUseCase;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -40,20 +41,9 @@ class TodoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, CreateTodoUseCase $case)
     {
-        $validator = Validator::make($request->all(), [
-            'todo' => 'required|max:191',
-            'deadline' => 'required'
-        ]);
-        if($validator->fails()) {
-            return redirect()
-                ->route('todo.create')
-                ->withInput()
-                ->withErrors($validator);
-        }
-        $data = $request->merge(['user_id' => Auth::user()->id])->all();
-        $result = Todo::create($data);
+        $case($request);
         return redirect()->route('todo.index');
     }
 

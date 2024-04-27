@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Todo;
 use App\UseCase\CreateTodoUseCase;
 use App\UseCase\EditTodoUseCase;
 use App\UseCase\DeleteTodoUseCase;
+use App\UseCase\GetEditTodoUseCase;
+use App\UseCase\GetShowTodoUseCase;
+use App\UseCase\GetUserTodoUseCase;
 
 class TodoController extends Controller
 {
@@ -19,9 +21,9 @@ class TodoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(GetUserTodoUseCase $case)
     {
-        $todos = Todo::getMyAllOrderByDeadline();
+        $todos = $case();
         return view('todo.index', compact('todos'));
     }
 
@@ -53,9 +55,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, GetShowTodoUseCase $case)
     {
-        $todo = Todo::find($id);
+        $todo = $case($id);
         return view('todo.show', compact('todo'));
     }
 
@@ -65,9 +67,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, GetEditTodoUseCase $case)
     {
-        $todo = Todo::find($id);
+        $todo = $case($id);
         return view('todo.edit', compact('todo'));
     }
 

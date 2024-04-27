@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Todo;
 use App\UseCase\CreateTodoUseCase;
 use App\UseCase\EditTodoUseCase;
-use Illuminate\Support\Facades\Validator;
+use App\UseCase\DeleteTodoUseCase;
 
 class TodoController extends Controller
 {
@@ -90,9 +90,9 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, DeleteTodoUseCase $case)
     {
-        $result = Todo::find($id)->delete();
+        $case($id);
         return redirect()->route('todo.index');
     }
 }

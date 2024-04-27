@@ -1,7 +1,6 @@
 <?php
 namespace App\UseCase;
 use App\Models\Todo;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class EditTodoUseCase

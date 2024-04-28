@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
+use App\Domain\Todo\Id;
+use App\Domain\Todo\UserId;
+use App\Domain\Todo\TodoTitle;
+use App\Domain\Todo\Deadline;
+use App\Domain\Todo\Comment;
 
 class Todo extends Model
 {
@@ -19,6 +24,53 @@ class Todo extends Model
         'updated_at'
     ];
 
+    // id
+    public function setIdAttribute($value)
+    {
+        $this->attributes['id'] = new Id($value);
+    }
+    public function getIdAttribute($value)
+    {
+        return $value instanceof Id ? $value->value() : $value;
+    }
+    // userId
+    public function setUserIdAttribute($value)
+    {
+        $this->attributes['user_id'] = new UserId($value);
+    }
+    public function getUserIdAttribute($value)
+    {
+        return $value instanceof UserId ? $value->value() : $value;
+    }
+    // todoTitle
+    public function setTitleAttribute($value)
+    {
+        $this->attributes['todo'] = new TodoTitle($value);
+    }
+    public function getTitleAttribute($value)
+    {
+        return $value instanceof TodoTitle ? $value->value() : $value;
+    }
+    // deadline
+    public function setDeadlineAttribute($value)
+    {
+        $this->attributes['deadline'] = new Deadline($value);
+    }
+    public function getDeadlineAttribute($value)
+    {
+        return $value instanceof Deadline ? $value->value() : $value;
+    }
+    // comment
+    public function setCommentAttribute($value)
+    {
+        $this->attributes['comment'] = new Comment($value);
+    }
+    public function getCommentAttribute($value)
+    {
+        return $value instanceof Comment ? $value->value() : $value;
+    }
+
+    
     public static function getAllOrderByDeadline()
     {
         return self::OrderBy('deadline', 'asc')->get();

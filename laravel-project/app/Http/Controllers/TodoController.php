@@ -9,7 +9,7 @@ use App\UseCase\DeleteTodoUseCase;
 use App\UseCase\GetEditTodoUseCase;
 use App\UseCase\GetShowTodoUseCase;
 use App\UseCase\GetUserTodoUseCase;
-use App\Models\Todo;
+use App\UseCase\EditStatusUseCase;
 
 class TodoController extends Controller
 {
@@ -99,11 +99,9 @@ class TodoController extends Controller
         return redirect()->route('todo.index');
     }
 
-    public function toggle(Request $request, $id)
+    public function toggle($id, EditStatusUseCase $case)
     {
-        $todo = Todo::findOrFail($id);
-        $todo->status = 1 - $todo->status;
-        $todo->save();
+        $case($id);
         return redirect()->route('todo.index');
     }
 }

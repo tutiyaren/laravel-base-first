@@ -13,6 +13,7 @@ use App\Domain\Todo\UserId;
 use App\Domain\Todo\TodoTitle;
 use App\Domain\Todo\Deadline;
 use App\Domain\Todo\Comment;
+use App\Domain\Todo\Status;
 
 class Todo extends Model
 {
@@ -68,6 +69,15 @@ class Todo extends Model
     public function getCommentAttribute($value)
     {
         return $value instanceof Comment ? $value->value() : $value;
+    }
+    // status
+    public function setStatusAttribute($value)
+    {
+        $this->attributes['status'] = new Status($value);
+    }
+    public function getStatusAttribute($value)
+    {
+        return $value instanceof Status ? $value->value() : $value;
     }
 
     

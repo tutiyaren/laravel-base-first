@@ -19,6 +19,7 @@ class CreateTodosTable extends Migration
             $table->string('todo');
             $table->date('deadline');
             $table->text('comment')->nullable();
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

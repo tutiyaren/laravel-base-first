@@ -14,6 +14,7 @@
                             <tr>
                                 <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">todo</th>
                                 <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">deadline</th>
+                                <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">status</th>
                                 <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">actions</th>
                             </tr>
                         </thead>
@@ -24,6 +25,16 @@
                                     <a href="{{ route('todo.show', $todo->id) }}">{{$todo->todo}}</a>
                                 </td>
                                 <td class="py-4 px-6 border-b border-grey-light">{{$todo->deadline}}</td>
+                                <td class="py-4 px-6 border-b border-grey-light">
+                                    <!-- 完了・未完了 -->
+                                    <form action="{{ route('todo.toggle', $todo->id) }}" method="post">
+                                        @method('put')
+                                        @csrf
+                                        <button type="submit" class="mr-2 ml-2 text-sm bg-black hover:bg-gray-900 hover:shadow-none text-white py-1 px-2 focus:outline-none focus:shadow-outline">
+                                            {{ $todo->status === 0 ? '未完了': '完了' }}
+                                        </button>
+                                    </form>
+                                </td>
                                 <td class="py-4 px-6 border-b border-grey-light flex justify-center">
                                     <!-- 更新ボタン -->
                                     <form action="{{ route('todo.edit',$todo->id) }}" method="GET">

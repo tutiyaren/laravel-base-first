@@ -9,6 +9,7 @@ use App\UseCase\DeleteTodoUseCase;
 use App\UseCase\GetEditTodoUseCase;
 use App\UseCase\GetShowTodoUseCase;
 use App\UseCase\GetUserTodoUseCase;
+use App\Models\Todo;
 
 class TodoController extends Controller
 {
@@ -95,6 +96,14 @@ class TodoController extends Controller
     public function destroy($id, DeleteTodoUseCase $case)
     {
         $case($id);
+        return redirect()->route('todo.index');
+    }
+
+    public function toggle(Request $request, $id)
+    {
+        $todo = Todo::findOrFail($id);
+        $todo->status = 1 - $todo->status;
+        $todo->save();
         return redirect()->route('todo.index');
     }
 }

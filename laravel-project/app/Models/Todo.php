@@ -25,6 +25,16 @@ class Todo extends Model
         'updated_at'
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function todo_categories()
+    {
+        return $this->hasMany(Todo_category::class, 'todo_id');
+    }
+
     // id
     public function setIdAttribute($value)
     {

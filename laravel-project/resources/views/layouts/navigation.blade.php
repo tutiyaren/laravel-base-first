@@ -28,6 +28,18 @@
                         {{ __('Create') }}
                     </x-nav-link>
                 </div>
+                <!-- ↓カテゴリページへのリンクを追加 -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+                        {{ __('Category') }}
+                    </x-nav-link>
+                </div>
+                <!-- ↓カテゴリ作成ページへのリンクを追加 -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('category.create')" :active="request()->routeIs('category.create')">
+                        {{ __('CateCrea') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

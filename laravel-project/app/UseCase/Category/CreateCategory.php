@@ -15,5 +15,6 @@ class CreateCategory
             'user_id' => $userId,
             'name' => $name,
         ]);
+        
     }
 }

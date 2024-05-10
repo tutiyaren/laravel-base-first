@@ -10,6 +10,7 @@ use App\UseCase\GetEditTodoUseCase;
 use App\UseCase\GetShowTodoUseCase;
 use App\UseCase\GetUserTodoUseCase;
 use App\UseCase\EditStatusUseCase;
+use App\UseCase\GetCreateTodo;
 
 class TodoController extends Controller
 {
@@ -33,9 +34,10 @@ class TodoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(GetCreateTodo $case)
     {
-        return view('todo.create');
+        $categories = $case();
+        return view('todo.create', compact('categories'));
     }
 
     /**
@@ -70,8 +72,8 @@ class TodoController extends Controller
      */
     public function edit($id, GetEditTodoUseCase $case)
     {
-        $todo = $case($id);
-        return view('todo.edit', compact('todo'));
+        list($todo, $categories) = $case($id);
+        return view('todo.edit', compact('todo', 'categories'));
     }
 
     /**

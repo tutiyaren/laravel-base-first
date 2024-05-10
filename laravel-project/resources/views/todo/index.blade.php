@@ -12,6 +12,7 @@
                     <table class="text-center w-full border-collapse">
                         <thead>
                             <tr>
+                                <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">category</th>
                                 <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">todo</th>
                                 <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">deadline</th>
                                 <th class="py-4 px-6 bg-grey-lightest font-bold uppercase text-lg text-grey-dark border-b border-grey-light">status</th>
@@ -21,6 +22,11 @@
                         <tbody>
                             @foreach ($todos as $todo)
                             <tr class="hover:bg-grey-lighter">
+                                <td class="py-4 px-6 border-b border-grey-light">
+                                    @foreach($todo->todo_categories as $todo_category)
+                                    {{ $todo_category->category->name }}
+                                    @endforeach
+                                </td>
                                 <td class="py-4 px-6 border-b border-grey-light">
                                     <a href="{{ route('todo.show', $todo->id) }}">{{$todo->todo}}</a>
                                 </td>

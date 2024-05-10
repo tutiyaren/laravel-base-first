@@ -6,6 +6,8 @@ class DeleteTodoUseCase
 {
     public function __invoke($id)
     {
-        Todo::find($id)->delete();
+        $todo = Todo::find($id);
+        $todo->todo_categories()->delete();
+        $todo->delete();
     }
 }

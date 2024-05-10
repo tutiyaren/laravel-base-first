@@ -13,6 +13,15 @@
                     <form class="mb-6" action="{{ route('todo.store') }}" method="POST">
                         @csrf
                         <div class="flex flex-col mb-4">
+                            <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="category">Category</label>
+                            <select name="name" required id="category" class="border py-2 px-3 text-grey-darkest">
+                                <option disabled selected value="">カテゴリを選択してください</option>
+                                @foreach($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="flex flex-col mb-4">
                             <label class="mb-2 uppercase font-bold text-lg text-grey-darkest" for="todo">Todo</label>
                             <input class="border py-2 px-3 text-grey-darkest" type="text" name="todo" id="todo">
                         </div>

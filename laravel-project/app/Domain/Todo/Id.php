@@ -11,7 +11,7 @@ final class Id
 
     public function __construct(int $value)
     {
-        if($this->isInvalid($value)) {
+        if ($this->isInvalid($value)) {
             throw new Exception(self::INVALID_MESSAGE);
         }
         $this->value = $value;
